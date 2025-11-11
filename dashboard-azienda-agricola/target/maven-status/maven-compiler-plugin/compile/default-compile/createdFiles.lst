@@ -1,0 +1,14 @@
+it/universita/projectwork/dashboard/repo/DatoAmbientaleRepo.class
+it/universita/projectwork/dashboard/web/SoglieController.class
+it/universita/projectwork/dashboard/model/DatoAmbientale.class
+it/universita/projectwork/dashboard/model/DatoProduttivo.class
+it/universita/projectwork/dashboard/service/PdfService.class
+it/universita/projectwork/dashboard/controller/HomeController.class
+it/universita/projectwork/dashboard/DashboardAziendaAgricolaApplication.class
+it/universita/projectwork/dashboard/service/SoglieService.class
+it/universita/projectwork/dashboard/web/DashboardController.class
+it/universita/projectwork/dashboard/dto/DatoDTO.class
+it/universita/projectwork/dashboard/web/DatiController.class
+it/universita/projectwork/dashboard/web/ReportController.class
+it/universita/projectwork/dashboard/config/WebSocketConfig.class
+it/universita/projectwork/dashboard/repo/DatoProduttivoRepo.class

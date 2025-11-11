@@ -1,0 +1,14 @@
+/Users/federicopastina/Desktop/Pegaso/pw_fp/dashboard-azienda-agricola/src/main/java/it/universita/projectwork/dashboard/DashboardAziendaAgricolaApplication.java
+/Users/federicopastina/Desktop/Pegaso/pw_fp/dashboard-azienda-agricola/src/main/java/it/universita/projectwork/dashboard/config/WebSocketConfig.java
+/Users/federicopastina/Desktop/Pegaso/pw_fp/dashboard-azienda-agricola/src/main/java/it/universita/projectwork/dashboard/controller/HomeController.java
+/Users/federicopastina/Desktop/Pegaso/pw_fp/dashboard-azienda-agricola/src/main/java/it/universita/projectwork/dashboard/dto/DatoDTO.java
+/Users/federicopastina/Desktop/Pegaso/pw_fp/dashboard-azienda-agricola/src/main/java/it/universita/projectwork/dashboard/model/DatoAmbientale.java
+/Users/federicopastina/Desktop/Pegaso/pw_fp/dashboard-azienda-agricola/src/main/java/it/universita/projectwork/dashboard/model/DatoProduttivo.java
+/Users/federicopastina/Desktop/Pegaso/pw_fp/dashboard-azienda-agricola/src/main/java/it/universita/projectwork/dashboard/repo/DatoAmbientaleRepo.java
+/Users/federicopastina/Desktop/Pegaso/pw_fp/dashboard-azienda-agricola/src/main/java/it/universita/projectwork/dashboard/repo/DatoProduttivoRepo.java
+/Users/federicopastina/Desktop/Pegaso/pw_fp/dashboard-azienda-agricola/src/main/java/it/universita/projectwork/dashboard/service/PdfService.java
+/Users/federicopastina/Desktop/Pegaso/pw_fp/dashboard-azienda-agricola/src/main/java/it/universita/projectwork/dashboard/service/SoglieService.java
+/Users/federicopastina/Desktop/Pegaso/pw_fp/dashboard-azienda-agricola/src/main/java/it/universita/projectwork/dashboard/web/DashboardController.java
+/Users/federicopastina/Desktop/Pegaso/pw_fp/dashboard-azienda-agricola/src/main/java/it/universita/projectwork/dashboard/web/DatiController.java
+/Users/federicopastina/Desktop/Pegaso/pw_fp/dashboard-azienda-agricola/src/main/java/it/universita/projectwork/dashboard/web/ReportController.java
+/Users/federicopastina/Desktop/Pegaso/pw_fp/dashboard-azienda-agricola/src/main/java/it/universita/projectwork/dashboard/web/SoglieController.java

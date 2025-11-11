@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="it">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Agri Dashboard · About</title>
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+
+<body>
+  <div th:replace="fragments :: navbar('about')"></div>
+
+  <main class="container">
+    <h1>About & Link utili</h1>
+    <p class="muted">Raccolta di scorciatoie e risorse del Project Work.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3>Console database</h3>
+        <p>Ispeziona tabelle e dati persistenti.</p>
+        <div class="btn-row">
+          <a class="btn" th:href="@{/h2-console}" target="_blank" rel="noopener">Apri H2 Console</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Endpoint Report</h3>
+        <p>Filtra per intervallo e scarica CSV/PDF.</p>
+        <div class="btn-row">
+          <a class="btn" th:href="@{/report}">Pagina Report</a>
+          <a class="btn" th:href="@{/report/csv(type='amb')}" download>CSV ambientali</a>
+          <a class="btn" th:href="@{/report/csv(type='prod')}" download>CSV produttivi</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>API dati (GET)</h3>
+        <p>Scarica il JSON dei dati per un intervallo.</p>
+        <pre class="code-dark">/api/dati?from=YYYY-MM-DDTHH:MM&amp;to=YYYY-MM-DDTHH:MM</pre>
+        <div class="btn-row">
+          <a class="btn" th:href="@{/dashboard}">Apri Dashboard</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div th:replace="fragments :: footer"></div>
+</body>
+
+</html>

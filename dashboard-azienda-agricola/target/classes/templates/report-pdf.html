@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <style type="text/css">
+    body {
+      font-family: sans-serif;
+      font-size: 11pt;
+    }
+
+    h1 {
+      font-size: 16pt;
+      margin: 0 0 10px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      border: 1px solid #999;
+      padding: 6px;
+    }
+
+    th {
+      background: #eee;
+    }
+
+    .section {
+      margin-top: 16px;
+    }
+  </style>
+  <p style="margin:6px 0;">
+    WUE (efficienza d’uso dell’acqua): <strong th:text="${#numbers.formatDecimal(wue,1,2)}">0.00</strong>
+    &nbsp;—&nbsp;
+    Trend crescita: <strong th:text="${trendCrescita==1?'↑':(trendCrescita==-1?'↓':'→')}">→</strong>
+  </p>¯
+</head>
+<script src="/js/nav.js"></script>
+
+<body>
+  <h1>Report dati — Settore primario</h1>
+  <p th:if="${from != null}">Intervallo: <span th:text="${from}"></span> → <span th:text="${to}"></span></p>
+
+  <div class="section">
+    <h2>Dati ambientali</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Timestamp</th>
+          <th>Temperatura (°C)</th>
+          <th>Umidità suolo (%)</th>
+          <th>Pioggia (mm)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="r : ${amb}">
+          <td th:text="${r.timestamp}">2025-11-09T16:00:00Z</td>
+          <td th:text="${#numbers.formatDecimal(r.temperatura, 1, 2)}">22.10</td>
+          <td th:text="${r.umiditaSuolo}">55</td>
+          <td th:text="${#numbers.formatDecimal(r.pioggia, 1, 2)}">0.20</td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(amb)}">
+          <td colspan="4">Nessun dato</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>Dati produttivi</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Timestamp</th>
+          <th>Resa</th>
+          <th>Crescita (%)</th>
+          <th>Acqua utilizzata</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="r : ${prod}">
+          <td th:text="${r.timestamp}">2025-11-09T16:00:00Z</td>
+          <td th:text="${#numbers.formatDecimal(r.resa, 1, 2)}">50.55</td>
+          <td th:text="${#numbers.formatDecimal(r.crescita, 1, 2)}">0.75</td>
+          <td th:text="${#numbers.formatDecimal(r.acquaUtilizzata, 1, 2)}">118.00</td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(prod)}">
+          <td colspan="4">Nessun dato</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>

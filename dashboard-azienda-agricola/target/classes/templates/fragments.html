@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="it">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Fragments</title>
+</head>
+
+<body>
+  <nav th:fragment="navbar (page)" class="nav">
+    <div class="nav__brand">
+      <a class="nav__logo" th:href="@{/}">Agri Dashboard</a>
+    </div>
+    <ul class="nav__menu">
+      <li><a th:href="@{/}" th:classappend="${page}=='home'      ? ' active' : ''">Home</a></li>
+      <li><a th:href="@{/dashboard}" th:classappend="${page}=='dashboard' ? ' active' : ''">Dashboard</a></li>
+      <li><a th:href="@{/report}" th:classappend="${page}=='report'    ? ' active' : ''">Report</a></li>
+      <li><a th:href="@{/about}" th:classappend="${page}=='about'     ? ' active' : ''">About</a></li>
+    </ul>
+  </nav>
+
+
+  <footer th:fragment="footer" class="footer">
+    <div class="container footer__grid">
+      <div>© <span th:text="${T(java.time.Year).now().getValue()}">2025</span> · Agri Dashboard – Federico Pastina -
+        Project Work</div>
+      <div class="footer__links">
+        <a th:href="@{/about}">About</a>
+        <a th:href="@{/report}">Report</a>
+        <a th:href="@{/dashboard}">Dashboard</a>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>

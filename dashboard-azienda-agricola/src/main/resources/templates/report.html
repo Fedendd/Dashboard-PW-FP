@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="it">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Agri Dashboard · Report</title>
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+
+<body>
+  <div th:replace="fragments :: navbar('report')"></div>
+
+  <main class="container">
+    <h1>Report dati – Settore primario</h1>
+    <p class="muted">Ultimi 50 record salvati (ordinati per tempo crescente).</p>
+
+    <form method="get" action="/report" class="card">
+      <label>Da&nbsp;
+        <input type="datetime-local" name="from" th:value="${from} == null ? '' : ${from}">
+      </label>
+      <label>&nbsp;A&nbsp;
+        <input type="datetime-local" name="to" th:value="${to} == null ? '' : ${to}">
+      </label>
+      <button type="submit" class="btn" style="margin-left:8px;">Filtra tabelle</button>
+      <a class="btn" th:href="@{'/report/csv'(type='amb', from=${from}, to=${to})}" style="margin-left:8px;">Esporta CSV
+        ambientali</a>
+      <a class="btn" th:href="@{'/report/csv'(type='prod', from=${from}, to=${to})}" style="margin-left:8px;">Esporta
+        CSV produttivi</a>
+      <a class="btn" th:href="@{'/report/pdf'(from=${from}, to=${to})}" style="margin-left:8px;">Esporta PDF</a>
+    </form>
+
+    <h2>Dati ambientali</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Timestamp</th>
+          <th>Temperatura (°C)</th>
+          <th>Umidità suolo (%)</th>
+          <th>Pioggia (mm)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="d : ${amb}">
+          <td th:text="${#temporals.format(d.timestamp, 'yyyy-MM-dd HH:mm:ss')}">2025-11-03 12:34:56</td>
+          <td th:text="${d.temperatura}">--</td>
+          <td th:text="${d.umiditaSuolo}">--</td>
+          <td th:text="${d.pioggia}">--</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Dati produttivi</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Timestamp</th>
+          <th>Resa</th>
+          <th>Crescita (%)</th>
+          <th>Acqua utilizzata</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="p : ${prod}">
+          <td th:text="${#temporals.format(p.timestamp, 'yyyy-MM-dd HH:mm:ss')}">2025-11-03 12:34:56</td>
+          <td th:text="${p.resa}">--</td>
+          <td th:text="${p.crescita}">--</td>
+          <td th:text="${p.acquaUtilizzata}">--</td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+
+  <div th:replace="fragments :: footer"></div>
+</body>
+
+</html>

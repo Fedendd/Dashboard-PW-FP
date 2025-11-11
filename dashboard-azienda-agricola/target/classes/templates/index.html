@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="it">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Agri Dashboard · Home</title>
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+
+<body>
+  <div th:replace="fragments :: navbar('home')"></div>
+
+  <main class="container hero">
+    <h1>Dashboard prestazioni aziendali — Settore primario</h1>
+    <p class="lead">
+      Monitoraggio in tempo reale di dati ambientali e produttivi, KPI (efficienza d’uso dell’acqua e trend), soglie dinamiche e reportistica.
+    </p>
+
+    <div class="btn-row">
+      <a class="btn primary" th:href="@{/dashboard}">Apri Dashboard</a>
+      <a class="btn" th:href="@{/report}">Apri Report</a>
+      <a class="btn" th:href="@{/about}">About & link utili</a>
+    </div>
+
+    <section class="section">
+      <h2>Cos’è e perché esiste</h2>
+      <p>
+        Agri Dashboard è un piccolo ecosistema web pensato per simulare il controllo operativo di un’azienda del settore primario. <br>
+        Integra la raccolta continua di dati ambientali:<br>
+        temperatura, umidità del suolo, pioggia, Dati produttivi, Dati resi, crescita e acqua impiegata con analisi leggere ma pratiche  l’efficienza idrica e un’indicazione di trend della crescita calcolata su una finestra mobile.<br>
+        In più, espone un endpoint di report ,filtrabile per intervallo ,che consente l’esportazione dei CSV e la consultazione tabellare dei dati.
+      
+    </section>
+  </main>
+
+  <div th:replace="fragments :: footer"></div>
+</body>
+
+</html>

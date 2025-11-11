@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="it">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Agri Dashboard · Dashboard</title>
+  <link rel="stylesheet" href="/css/app.css" />
+
+  <!-- Librerie grafiche / websocket -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+
+  <!-- Bridge server → JS -->
+  <script th:inline="javascript">
+    window.__INITIAL__ = {
+      labelsAmb:    /*[[${labelsAmb}]]*/[],
+      tempList:     /*[[${tempList}]]*/[],
+      umidList:     /*[[${umidList}]]*/[],
+      pioggiaList:  /*[[${pioggiaList}]]*/[],
+      labelsProd:   /*[[${labelsProd}]]*/[],
+      resaList:     /*[[${resaList}]]*/[],
+      acquaList:    /*[[${acquaList}]]*/[],
+      crescitaList: /*[[${crescitaList}]]*/[]
+    };
+    window.__THRESHOLDS__ = {
+      S_CALDO:        /*[[${sogliaCaldo}]]*/ 35,
+      S_SUOLO_SECCO:  /*[[${sogliaSuoloSecco}]]*/ 20,
+      S_PIOGGIA:      /*[[${sogliaPioggia}]]*/ 5,
+      S_EFF:          /*[[${sogliaEfficienza}]]*/ 0.30
+    };
+  </script>
+</head>
+
+<body>
+  <div th:replace="fragments :: navbar('dashboard')"></div>
+
+  <main class="container">
+    <h1>Cruscotto prestazioni aziendali – settore primario</h1>
+    <p class="muted">Aggiornamento in tempo reale dai dati simulati</p>
+
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="kpi__label">Efficienza idrica</div>
+        <div class="kpi__value" id="kpiEfficienza" th:text="${effStr != null ? effStr : 'n/d'}">n/d</div>
+        <div id="alertBox" class="alert" style="display:none;"></div>
+      </div>
+
+      <div class="kpi">
+        <div class="kpi__label">WUE (efficienza d’uso dell’acqua)</div>
+        <div class="kpi__value" id="kpiWue" th:text="${#numbers.formatDecimal(wue,1,2)}">0.00</div>
+      </div>
+
+      <div class="kpi">
+        <div class="kpi__label">Trend crescita</div>
+        <div class="kpi__value" id="kpiTrend" th:text="${trendCrescita==1?'↑':(trendCrescita==-1?'↓':'→')}"
+          th:classappend="${trendCrescita==1?' up':(trendCrescita==-1?' down':' flat')}">→</div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn" onclick="setRangeMinutes(15)">Ultimi 15 min</button>
+      <button class="btn" onclick="setRangeMinutes(60)">Ultima ora</button>
+      <button class="btn" onclick="setRangeToday()">Oggi</button>
+    </div>
+
+    <div class="btn-row">
+      <a class="btn" th:href="@{/report/csv(type='amb')}" download>Esporta CSV ambientali</a>
+      <a class="btn" th:href="@{/report/csv(type='prod')}" download>Esporta CSV produttivi</a>
+      <a class="btn" th:href="@{/report}">Apri pagina Report</a>
+    </div>
+
+    <p class="muted">
+      Soglie attive:
+      caldo ≥ <span id="sCaldo" th:text="${sogliaCaldo}">35</span>°C,
+      suolo secco ≤ <span id="sSuolo" th:text="${sogliaSuoloSecco}">20</span>%,
+      pioggia ≥ <span id="sPioggia" th:text="${sogliaPioggia}">5</span> mm,
+      efficienza &lt; <span id="sEff" th:text="${sogliaEfficienza}">0.30</span>
+    </p>
+
+    <div class="card">
+      <button id="btnToggleSoglie" class="btn" onclick="toggleSoglie()">Modifica soglie</button>
+      <form id="formSoglie" onsubmit="return salvaSoglie(event)" style="display:none; margin-top:8px;">
+        <label>Caldo (°C) <input type="number" step="0.1" id="inCaldo"></label>
+        <label>Suolo secco (%) <input type="number" step="1" id="inSuolo"></label>
+        <label>Pioggia (mm) <input type="number" step="0.1" id="inPioggia"></label>
+        <label>Efficienza <input type="number" step="0.01" id="inEff"></label>
+        <button type="submit" class="btn">Salva</button>
+      </form>
+      <div id="msgSoglie" class="muted" style="display:none; margin-top:6px;">Soglie aggiornate.</div>
+    </div>
+
+    <div class="grid">
+      <div>
+        <h3>Temperatura dell'aria (°C)</h3>
+        <canvas id="chartTemperatura" height="200"></canvas>
+      </div>
+      <div>
+        <h3>Umidità del suolo (%)</h3>
+        <canvas id="chartUmidita" height="200"></canvas>
+      </div>
+      <div>
+        <h3>Precipitazioni (mm)</h3>
+        <canvas id="chartPioggia" height="200"></canvas>
+      </div>
+      <div>
+        <h3>Resa stimata</h3>
+        <canvas id="chartResa" height="200"></canvas>
+      </div>
+    </div>
+  </main>
+
+  <div th:replace="fragments :: footer"></div>
+
+  <script src="/js/dashboard.js"></script>
+</body>
+
+</html>
